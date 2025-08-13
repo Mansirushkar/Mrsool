@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../controllers/oreder_controller.dart';
 
 class OrederBinding extends Bindings {

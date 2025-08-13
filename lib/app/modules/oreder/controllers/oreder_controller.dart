@@ -1,26 +1,39 @@
-import 'dart:async';
+// oreder_controller.dart
 import 'package:get/get.dart';
+import 'dart:async';
+import '../../../routes/app_pages.dart';
 
 class OrederController extends GetxController {
-  final secondsLeft = 40.obs;
+  var countdown = 40.obs;
   Timer? _timer;
 
   @override
   void onInit() {
-    _startCountdown();
     super.onInit();
+    startCountdown();
   }
 
-  void _startCountdown() {
-    _timer?.cancel();
-    secondsLeft.value = 40;
+  void startCountdown() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (secondsLeft.value > 0) {
-        secondsLeft.value--;
+      if (countdown.value > 0) {
+        countdown.value--;
       } else {
-        timer.cancel();
+        _timer?.cancel();
+        navigateToHome();
       }
     });
+  }
+
+  void navigateToHome() {
+    //Get.offNamed(Routes.HOME);
+  }
+
+  void onRejectPressed() {
+    navigateToHome();
+  }
+
+  void onAutoAcceptPressed() {
+    navigateToHome();
   }
 
   @override

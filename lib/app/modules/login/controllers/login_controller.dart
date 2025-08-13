@@ -47,10 +47,10 @@ class LoginController extends GetxController {
   }
 
   void fetchDeviceData() async {
-    final token = await NativeDataService.getDeviceToken();
+    final token =  NativeDataService.getDeviceToken();
     final info = await NativeDataService.getDeviceInfo();
 
-    deviceToken.value = token ?? '';
+    deviceToken.value = token.toString();
     deviceName.value = info?['deviceName'] ?? '';
     osVersion.value = info?['osVersion'] ?? '';
     appVersion.value = info?['appVersion'] ?? '';
@@ -131,8 +131,8 @@ class LoginController extends GetxController {
   }
 
   Future<void> confirmPhoneNumber(BuildContext context) async {
-    Get.toNamed(Routes.HOME);
-    String? captchaToken = await NativeDataService.showCaptcha();
+    Get.toNamed(Routes.OREDER);
+    Future<String?> captchaToken =  NativeDataService.showCaptcha();
     print('LoginController_ Captcha_Token:::  $captchaToken');
 
     String rawCode = countryCodeController.value;
@@ -166,7 +166,7 @@ class LoginController extends GetxController {
         //  print('LoginController_ ::: callLoginWithNumber_CALll-  ${countryCodeController.value}${phoneController.text.trim()}');
         print('LoginController_ ::: fullPhone-  ${fullPhone}');
         if(captchaToken != null)
-        await callLoginWithNumber(vPhone: fullPhone, hCaptchaToken: captchaToken);
+        await callLoginWithNumber(vPhone: fullPhone, hCaptchaToken: await captchaToken);
 
       } else {
         showTopSnackBar(context, 'Mobile number must be at least ${countryDigitRange.min} digits.');
