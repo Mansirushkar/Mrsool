@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hCaptcha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script type="text/javascript">
+        function onSubmit(token) {
+          if (window.captchaCallback) {
+            captchaCallback.postMessage(token);
+          } else {
+            alert("Token: " + token);
+          }
+        }
+    </script>
+</head>
+<body>
+<div style="margin-top: 30%; text-align: center;">
+    <form>
+        <div
+                class="h-captcha"
+                data-sitekey="b078d2b8-2ce0-4b92-b933-2f6bfdeaaf1d"
+                data-callback="onSubmit"
+        ></div>
+    </form>
+</div>
+</body>
+</html>
